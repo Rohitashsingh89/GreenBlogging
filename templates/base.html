@@ -1,0 +1,95 @@
+<!-- {% load static %} -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="{{ owner.name }} Portfolio Website.">
+    <meta name="author" content="{{ owner.name }}">
+    <title>{% block title %} {% endblock title %} - {{ owner.name }} </title>
+    <!-- font icons -->
+    <link rel="stylesheet" href="{% static 'vendors/themify-icons/css/themify-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="shortcut icon" href="{{ owner.fav_icon.url }}" type="image/x-icon">
+</head>
+
+<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
+
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" data-spy="affix" data-offset-top="0">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}"><img src="{{ images.logo_file.url }}" class="rounded-circle"
+                    alt="" style="width: 50px; height: 50px;"></a>
+            <a class="navbar-brand" href="{% url 'home' %}">{{ owner.nick_name }}</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto align-items-center ">
+                    <li class="nav-item">
+                        <a class="nav-link fs-4" href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'about' %}">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'services' %}">Service</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'blog' %}">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'contactus' %}">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    {% block body %}
+
+    {% endblock body %}
+
+    <!-- Page Footer -->
+    <footer class="page-footer text-light" style="background-color: #004c00;">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-sm-6 ">
+                    <p>Copyright
+                        <script>document.write(new Date().getFullYear())</script> &copy; <a
+                            href="{{ owner.portfolio_link }}" class="text-light" target="_blank">{{ owner.name }}</a>
+                    </p>
+                </div>
+                <div class="col-sm-6">
+                    <div class="socials">
+                        <a class="social-item text-light" style="border: 2px solid white;" href="{{ owner.linkedin }}"
+                            target="_blank"><i class="ti-linkedin"></i></a>
+                        <a class="social-item text-light" style="border: 2px solid white;"
+                            href="{{ owner.instagram }}"
+                            target="_blank"><i class="ti-instagram"></i></a>
+                        <a class="social-item text-light" style="border: 2px solid white;" href="{{ owner.youtube }}" target="_blank"><i
+                                class="ti-youtube"></i></a>
+                        <a class="social-item text-light" style="border: 2px solid white;" href="{{ owner.github }}" target="_blank"><i
+                                class="ti-github"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'vendors/jquery/jquery-3.4.1.js' %}"></script>
+    <script src="{% static 'vendors/bootstrap/bootstrap.bundle.js' %}"></script>
+    <script src="{% static 'vendors/bootstrap/bootstrap.affix.js' %}"></script>
+
+    <script src="{% static 'js/script.js' %}"></script>
+    
+    {% block js %}
+
+    {% endblock js %}
+
+</body>
+
+</html>

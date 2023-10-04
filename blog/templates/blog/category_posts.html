@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %} Blog Home {% endblock title %}
+{% load static %}
+{% load custom_filters %}
+
+{% block body %}
+
+<section
+        class="section section-concept section-no-border section-danger section-angled section-angled-reverse pt-5 m-0"
+        id="section-concept"
+        style="background-color: #328a57; background-size: cover; background-position: center; animation-duration: 750ms; animation-delay: 300ms; animation-fill-mode: forwards;">
+        <div class="section-angled-layer-bottom bg-light" style="padding: 0rem 0;"></div>
+        <div class="container-fluid pt-5">
+            <div class="page-header page-header-modern bg-color-dark-scale-1 page-header-md pt-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 align-self-center p-static order-2 text-center">
+                            <h1 class="text-light font-weight-bold text-8 my-2">Posts Shorted By Category</h1>                
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- blog section  -->
+    <div style="background-color: #e2e5e6;">
+        <section id="blog" class="section">
+            <div class="container text-center">
+                <p class="mb-5 pb-4">our featured blog post to show the updates. <br>
+                    You will get amazing content with latest tools & technologies.</p>
+
+                <div class="row text-left">
+                    {% for post in posts %}
+
+                    <div class="col-md-4">
+                        <div class="card border mb-4">
+                            <a href="{% url 'blog_details' post_slug=post.slug %}"><img src="{{ post.image.url }}" alt="" class="card-img-top w-100" style="height: 200px;"></a>
+                            <div class="card-body">
+                                <a href="{% url 'blog_details' post_slug=post.slug %}"><h5 class="card-title">{{ post.title|truncate_html_words:8 }}</h5></a>
+                                <div class="post-details">
+                                    <span>Posted By: {{ posts.0.author|capfirst }}</span>
+                                    {% for category in post.categories.all %}
+                                    <a href="{% url 'category_posts' category_slug=category.name %}"><i class="ti-folder"></i>{{ category.name }}</a>
+                                    {% endfor %}
+                                    <!-- <a href="javascript:void(0)"><i class="ti-comment"></i> 123</a> -->
+                                </div>
+                
+                                {{ post.content|truncate_html_words:15|safe }}
+                
+                                <div>
+                                    <a href="{% url 'blog_details' post_slug=post.slug %}">Read More..</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    
+                </div>
+            </div>
+        </section>
+    </div>
+
+{% endblock body %}

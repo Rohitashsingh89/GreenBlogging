@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% block title %} Blog Details {% endblock title %}
+{% load static %}
+{% load custom_filters %}
+
+{% block body %}
+
+<style>
+  #sidebar {
+    position: relative;
+}
+.fixed-sidebar {
+    position: fixed;
+    top: 50px;
+}
+
+
+</style>
+<section
+        class="section section-concept section-no-border section-dark section-angled section-angled-reverse pt-5 m-0"
+        id="section-concept"
+        style="background-color: #328a57; background-size: cover; background-position: center; animation-duration: 750ms; animation-delay: 300ms; animation-fill-mode: forwards;">
+        <div class="section-angled-layer-bottom bg-light" style="padding: 0rem 0;"></div>
+        <div class="container-fluid pt-5">
+            <div class="page-header page-header-modern bg-color-dark-scale-1 page-header-md pt-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 align-self-center p-static order-2 text-center">
+                            <h1 class="text-light font-weight-bold text-8 my-2">{{ blog_post.title }}</h1>                
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<div style="background-color: #e2e5e6;">
+    <div class="container section" >
+    <div class="row">
+        <div class="col-md-8 card mb-4 left  top" style="min-height: 80vh;">
+        <div class="card-body">
+            <div class="post-image ms-0">
+            <span>
+                <img src="{{ blog_post.image.url }}"
+                class="img-fluid img-thumbnail img-thumbnail-no-borders rounded-0" alt="">
+            </span>
+            </div>
+            <h2 class="pb-2">{{ blog_post.title }}</h2>
+
+            <p class=" text-muted pb-3">{{ blog_post.author|capfirst }} | {{ blog_post.publish_date|date:"d M Y" }}</p>
+            <p class="card-text ">{{ blog_post.content | safe }}</p>
+
+            
+            <div class="post-block mt-5 pt-5 pos-author">
+            <hr>
+            <h4 class="mb-3">Author</h4>
+            <div class="d-flex">
+                <div class="img-thumbnail img-thumbnail-no-borders d-block pb-3">
+                    <span>
+                        {% if author_profile.profile_picture %}
+                            <img src="{{ author_profile.profile_picture.url }}" alt="{{ blog_post.author.username }}'s profile picture" style="width: 100px; height: 100px; border-radius: 50px;">
+                        {% else %}
+                            <img src="{% static 'imgs/MRajesh.png' %}" alt="Default Profile Picture" style="width: 100px; height: 100px; border-radius: 20px;">
+                        {% endif %}
+                    </span>
+                </div>
+                <div class="pl-2">
+                <p><strong class="name"><span class="text-4 pb-2 pt-2 d-block">{{ author_profile|default:"Rajesh Kumar"|capfirst }}</span></strong></p>
+
+                <p>{{ author_profile.bio|default:"Prolific Author and Rational Philosopher." }}</p>
+                </div>
+            </div>
+
+        </div>
+        
+        </div>
+        </div>
+
+        
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-4" id="sidebar">
+        <div class="card">
+                <h5 class="card-header text-uppercase">Recent Posts</h5>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                    {% for post in recent_posts %}
+
+                    <div class="col-md-12">
+                        <div class="border-bottom mb-4 d-flex align-items-center" style="gap: 10px;">
+                            <img src="{{ post.image.url }}" alt="" class="card-img-top" style="width: 50px; height: 50px; border-radius: 10px;">
+                            <div class="pt-3">
+                                <a href="{% url 'blog_details' post_slug=post.slug %}"><h5 class="card-title">{{ post.title|truncate_html_words:4 }}</h5></a>
+                                <div class="post-details">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <h2 class="my-4">Recommended</h2>
+        
+        <div class="row text-left">
+        {% for post in recommended_posts %}
+        
+        <div class="col-md-4">
+            <div class="card border mb-4">
+                <a href="{% url 'blog_details' post_slug=post.slug %}"><img src="{{ post.image.url }}" alt="" class="card-img-top w-100" style="height: 200px;"></a>
+                <div class="card-body">
+                    <a href="{% url 'blog_details' post_slug=post.slug %}"><h5 class="card-title">{{ post.title|truncate_html_words:8 }}</h5></a>
+                    <div class="post-details">
+                        <span>Posted By: {{ posts.0.author|capfirst }}</span>
+                        {% for category in post.categories.all %}
+                        <a href="{% url 'category_posts' category_slug=category.name %}"><i class="ti-folder"></i>{{ category.name }}</a>
+                        {% endfor %}
+                    </div>
+        
+                    {{ post.content|truncate_html_words:15|safe }}
+        
+                    <div>
+                        <a href="{% url 'blog_details' post_slug=post.slug %}">Read More..</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        
+        </div>
+    </div>
+    </div>
+</div>
+
+{% endblock body %}

@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% block title %}Contact Us{% endblock title %}
+{% block body %}
+
+<section class="section section-concept section-no-border section-dark section-angled section-angled-reverse pt-5 m-0"
+    id="section-concept"
+    style="background-color: #328a57; background-size: cover; background-position: center; animation-duration: 750ms; animation-delay: 300ms; animation-fill-mode: forwards;">
+    <div class="section-angled-layer-bottom bg-light" style="padding: 0rem 0;"></div>
+    <div class="container-fluid pt-5">
+        <div class="page-header page-header-modern bg-color-dark-scale-1 page-header-md pt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 align-self-center p-static order-2 text-center">
+                        <h1 class="text-light font-weight-bold text-8 my-2">Contact Us</h1>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<hr class="m-0 p-0">
+<div style="background-color: #e2e5e6;">
+    <div class="container section">
+    <div class="row d-flex justify-content-center">
+        <div class="col-xs-12 col-sm-12 col-md-8 mx-auto">
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <span {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</span>
+                <script>
+                    setTimeout(function () {
+                        document.querySelector('.alert').style.display = 'none';
+                    }, 8000);  
+                </script>
+            </div>
+            {% endfor %}
+            {% endif %}
+
+            <div><span id="ctl01_ContentCode1"></span></div>
+            
+            <!-- Contact Form -->
+            <form class="form-horizontal" method="POST" action="{% url 'contactus' %}">
+                {% csrf_token %}
+    
+                <div class="form-group">
+                    <label for="{{ form.first_name.id_for_label }}" class="col-md-2 required">Name</label>
+                    <div class="col-md-12">
+                        <div class="row FormInsideRow">
+                            <div class="col-md-6">
+                                <input name="{{ form.first_name.name }}" type="text" maxlength="50" size="25"
+                                    id="{{ form.first_name.id_for_label }}"
+                                    class="form-control" placeholder="First Name" required>
+                                <span class="validationMSG" style="display:none;">Required</span>
+                            </div>
+                            <div class="col-md-6">
+                                <input name="{{ form.last_name.name }}" type="text" maxlength="50" size="25"
+                                    id="{{ form.last_name.id_for_label }}"
+                                    class="form-control" placeholder="Last Name" required>
+                                <span class="validationMSG" style="display:none;">Required</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+
+                <div class="form-group">
+                    <label for="{{ form.email.id_for_label }}" class="col-md-2 required">Email</label>
+                    <div class="col-md-12">
+                        <input name="{{ form.email.name }}" type="email" maxlength="250" size="50" id="{{ form.email.id_for_label }}" class="form-control"
+                            placeholder="Email" required>
+                        <span class="validationMSG" style="display:none;">Required</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.phone.id_for_label }}" class="col-md-2">Phone</label>
+                    <div class="col-md-12">
+                        <input name="{{ form.phone.name }}" type="tel" maxlength="50" id="{{ form.phone.id_for_label }}" class="form-control"
+                            placeholder="Phone">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.message.id_for_label }}" class="col-md-4">How can we help you?</label>
+                    <div class="col-md-12">
+                        <textarea name="{{ form.message.name }}" rows="5" cols="60" id="{{ form.message.id_for_label }}" class="form-control"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-12">
+                        <button type="submit" class="btn know_more_button btn-rounded button-blue btn-modern btn-px-5 text-3">Send Message</button>
+                    </div>
+                </div>
+            </form>
+            <!-- End Bootstrap Form -->
+
+        </div>
+    </div>
+    </div>
+</div>
+
+
+{% endblock body %}
