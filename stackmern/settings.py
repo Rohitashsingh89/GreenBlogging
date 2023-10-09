@@ -27,8 +27,7 @@ SECRET_KEY = 'django-insecure-r0jv9%$l1l=pve#3ct1!r4g4=a)i5$*quyrs02y13rs4efomxc
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['greenblogging.onrender.com', 'localhost']
 
 # Application definition
 
