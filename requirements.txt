@@ -5,6 +5,6 @@ django-ckeditor==6.3.2
 django-js-asset==2.0.0
 django-material-admin==1.8.6
 Pillow==9.4.0
-soupsieve==2.5
+soupsieve==2.4.1
 sqlparse==0.4.4
 tzdata==2023.3
